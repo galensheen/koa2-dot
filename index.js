@@ -73,5 +73,7 @@ module.exports = function views(options = {}) {
         ctx.clearViewsCache = function () {
             dot.clearCache.call(dot);
         };
+
+        return next();
     }
 };
