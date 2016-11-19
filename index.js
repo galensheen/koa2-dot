@@ -33,10 +33,13 @@ exports.views = function views(options = {}) {
         /**
          * render html by file
          * @param {String} file - template file
-         * @param {Object} locals - model for template
+         * @param {Object} model - model for template
+         * @param {Object} app - app info
          */
-        ctx.render = function (file, locals = {}) {
-            return dot.render.call(dot, file, locals).then(html => {
+        ctx.render = function (file, model, app) {
+            model = model || {};
+            app = app || {};
+            return dot.render.call(dot, file, {model, app}).then(html => {
                 ctx.type = 'text/html';
                 return ctx.body = html;
             }).catch(err => {
@@ -47,11 +50,14 @@ exports.views = function views(options = {}) {
         /**
          * get html from file
          * @param {String} file - file to get html
-         * @param {Object} locals - model for template
+         * @param {Object} model - model for template
+         * * @param {Object} app - app info
          * @returns {*}
          */
-        ctx.getHtmlByFile = function (file, locals = {}) {
-            return dot.render.call(dot, file, locals)
+        ctx.getHtmlByFile = function (file, model, app) {
+            model = model || {};
+            app = app || {};
+            return dot.render.call(dot, file, {model, app})
                 .then(html => html)
                 .catch(err => {throw err});
         };
@@ -59,11 +65,14 @@ exports.views = function views(options = {}) {
         /**
          * render from string
          * @param {String} str - string for rendering
-         * @param {Object} locals - model for template
+         * @param {Object} model - model for template
+         * * * @param {Object} app - app info
          * @returns {*}
          */
-        ctx.renderString = function (str, locals = {}) {
-            let template = dot.renderString.call(dot, str, locals);
+        ctx.renderString = function (str, model, app) {
+            model = model || {};
+            app = app || {};
+            let template = dot.renderString.call(dot, str, {model, app});
             ctx.type = 'text/html';
             return ctx.body = template;
         };
@@ -71,11 +80,14 @@ exports.views = function views(options = {}) {
         /**
          * get html from string
          * @param {String} str - string for rendering
-         * @param {Object} locals - model for template
+         * @param {Object} model - model for template
+         * * * * @param {Object} app - app info
          * @returns {Promise}
          */
-        ctx.getHtmlByString = function (str, locals = {}) {
-            return Promise.resolve(dot.renderString.call(dot, str, locals))
+        ctx.getHtmlByString = function (str, model, app) {
+            model = model || {};
+            app = app || {};
+            return Promise.resolve(dot.renderString.call(dot, str, {model, app}))
         };
 
         /**
