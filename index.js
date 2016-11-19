@@ -24,13 +24,22 @@ export default function views(options = {}) {
             return await next();
         }
 
-        ctx.render = function (file, locals = {}) {
+        ctx.render = async function (file, locals = {}) {
 
             // template = dot.getTemplate(path, locals);
             // ctx.type = 'text/html';
             // return ctx.body = template;
-            return dot.getTemplate.call(dot, file, locals);
+            try {
+                let template = await dot.compile.call(dot, file, locals);
+                console.log(template);
+            } catch (err) {
+                console.log('=========: ', err);
+            }
+
         };
+
+        // clear views cache
+        ctx.clearViewsCache = dot.clearCache.call(dot);
 
         //await next();
     }

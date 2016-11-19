@@ -8,13 +8,15 @@ import views from '../index';
 
 const option = {
     root: path.resolve(__dirname, 'views'),
-    extension: 'html'
+    extension: 'html',
+    cacheable: true
 };
 
 let ctx = {};
 
 const view = views(option)(ctx);
 
-ctx.render('index');
+ctx.render('index', {username: 'galensheen'});
+
 
 

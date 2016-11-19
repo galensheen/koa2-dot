@@ -23,7 +23,9 @@
   },
   "homepage": "https://github.com/galensheen/koa2-dot#readme",
   "dependencies": {
-    "dot": "^1.1.1"
+    "dot": "^1.1.1",
+    "extend": "^3.0.0",
+    "js-yaml": "^3.7.0"
   },
   "devDependencies": {
     "runkoa": "^1.5.6"
