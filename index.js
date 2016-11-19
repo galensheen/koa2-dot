@@ -30,12 +30,17 @@ export default function views(options = {}) {
             // ctx.type = 'text/html';
             // return ctx.body = template;
             try {
-                let template = await dot.compile.call(dot, file, locals);
+                let template = await dot.render.call(dot, file, locals);
                 console.log(template);
             } catch (err) {
                 console.log('=========: ', err);
             }
 
+        };
+
+        ctx.renderString = function (str, locals = {}) {
+            let template = dot.renderString(str, locals);
+            console.log(template);
         };
 
         // clear views cache

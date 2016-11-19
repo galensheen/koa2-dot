@@ -16,7 +16,12 @@ let ctx = {};
 
 const view = views(option)(ctx);
 
-ctx.render('index', {username: 'galensheen'});
+//ctx.render('index', {username: 'galensheen'});
+
+setTimeout(() => {
+    ctx.renderString('<div>username: [[= model.username ]]</div>', {username: 'yiliawong'});
+}, 1000);
+
 
 
 
