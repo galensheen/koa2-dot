@@ -24,28 +24,62 @@ export default function views(options = {}) {
             return await next();
         }
 
+        /**
+         * render html by file
+         * @param {String} file - template file
+         * @param {Object} locals - model for template
+         */
         ctx.render = async function (file, locals = {}) {
-
-            // template = dot.getTemplate(path, locals);
-            // ctx.type = 'text/html';
-            // return ctx.body = template;
             try {
                 let template = await dot.render.call(dot, file, locals);
-                console.log(template);
+                ctx.type = 'text/htm';
+                return ctx.body = template;
             } catch (err) {
-                console.log('=========: ', err);
+                return new Error(`Failed to render file ${file}, ${err.toString()}`);
             }
-
         };
 
+        /**
+         * get html from file
+         * @param {String} file - file to get html
+         * @param {Object} locals - model for template
+         * @returns {*}
+         */
+        ctx.getHtmlByFile = async function (file, locals = {}) {
+            try {
+                return await dot.render.call(dot, file, locals);
+            } catch (err) {
+                throw err;
+            }
+        };
+
+        /**
+         * render from string
+         * @param {String} str - string for rendering
+         * @param {Object} locals - model for template
+         * @returns {*}
+         */
         ctx.renderString = function (str, locals = {}) {
-            let template = dot.renderString(str, locals);
-            console.log(template);
+            let template = dot.renderString.call(dot, str, locals);
+            ctx.type = 'text/html';
+            return ctx.body = template;
         };
 
-        // clear views cache
-        ctx.clearViewsCache = dot.clearCache.call(dot);
+        /**
+         * get html from string
+         * @param {String} str - string for rendering
+         * @param {Object} locals - model for template
+         * @returns {Promise}
+         */
+        ctx.getHtmlByString = function (str, locals = {}) {
+            return Promise.resolve(dot.renderString.call(dot, str, locals));
+        };
 
-        //await next();
+        /**
+         * clear views' cache
+         */
+        ctx.clearViewsCache = function () {
+            dot.clearCache.call(dot);
+        };
     }
 }
