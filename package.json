@@ -1,6 +1,6 @@
 {
   "name": "koa2-dot",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "dot for koa2 with layout and include function.",
   "main": "index.js",
   "scripts": {

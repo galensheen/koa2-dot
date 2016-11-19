@@ -8,11 +8,17 @@ const Def = require('./lib/Def');
 const Dot = require('./lib/Dot');
 
 /**
+ * doT helper for custom def functoin
+ */
+exports.helper = Def.prototype;
+
+
+/**
  * The entry of koa2-dot
  * @param options
  * @returns {Function}
  */
-module.exports = function views(options = {}) {
+exports.views = function views(options = {}) {
     assert(!!options.root, 'the options.root is needed for koa2-dot!!');
 
     const def = new Def();

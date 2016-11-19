@@ -4,7 +4,11 @@
 
 const path = require('path');
 
-const views = require('../index');
+const doT = require('../index');
+
+doT.helper.test = function () {
+    return '======111111111========eeeeeee';
+};
 
 const option = {
     root: path.resolve(__dirname, 'views'),
@@ -14,7 +18,7 @@ const option = {
 
 let ctx = {};
 
-const view = views(option)(ctx, function(){});
+const view = doT.views(option)(ctx, function(){});
 
 // ctx.render('index', {username: 'koa2'});
 
