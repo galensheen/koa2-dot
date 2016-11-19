@@ -30,9 +30,12 @@ module.exports = function views(options = {}) {
          * @param {Object} locals - model for template
          */
         ctx.render = function (file, locals = {}) {
-            let html = dot.render.call(dot, file, locals);
-            ctx.type = 'text/html';
-            return ctx.body = html;
+            return dot.render.call(dot, file, locals).then(html => {
+                ctx.type = 'text/html';
+                return ctx.body = html;
+            }).catch(err => {
+                throw err;
+            })
         };
 
         /**
@@ -42,7 +45,9 @@ module.exports = function views(options = {}) {
          * @returns {*}
          */
         ctx.getHtmlByFile = function (file, locals = {}) {
-            return dot.render.call(dot, file, locals);
+            return dot.render.call(dot, file, locals)
+                .then(html => html)
+                .catch(err => {throw err});
         };
 
         /**
@@ -64,7 +69,7 @@ module.exports = function views(options = {}) {
          * @returns {Promise}
          */
         ctx.getHtmlByString = function (str, locals = {}) {
-            return dot.renderString.call(dot, str, locals);
+            return Promise.resolve(dot.renderString.call(dot, str, locals))
         };
 
         /**
