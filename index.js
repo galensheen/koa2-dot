@@ -5,14 +5,14 @@
 const assert = require('assert');
 
 const Def = require('./lib/Def');
-const Dot = require('./lib/Dot');
+const Dot = require('./lib/Dot').Dot;
 
 /**
  * The entry of koa2-dot
  * @param options
  * @returns {Function}
  */
-export default function views(options = {}) {
+module.exports = function views(options = {}) {
     assert(!!options.root, 'the options.root is needed for koa2-dot!!');
 
     const def = new Def();
@@ -82,4 +82,4 @@ export default function views(options = {}) {
             dot.clearCache.call(dot);
         };
     }
-}
+};
