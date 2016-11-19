@@ -2,10 +2,10 @@
  * Created by galen on 16/11/19.
  */
 
-import assert from 'assert';
+const assert = require('assert');
 
-import Def from './lib/Def';
-import Dot from './lib/Dot';
+const Def = require('./lib/Def');
+const Dot = require('./lib/Dot');
 
 /**
  * The entry of koa2-dot
