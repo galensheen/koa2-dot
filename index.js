@@ -5,7 +5,7 @@
 const assert = require('assert');
 
 const Def = require('./lib/Def');
-const Dot = require('./lib/Dot').Dot;
+const Dot = require('./lib/Dot');
 
 /**
  * The entry of koa2-dot
@@ -18,10 +18,10 @@ module.exports = function views(options = {}) {
     const def = new Def();
     const dot = new Dot(def, options);
 
-    return async function (ctx, next) {
+    return function (ctx, next) {
 
         if (!!ctx.render) {
-            return await next();
+            return next();
         }
 
         /**
@@ -29,14 +29,10 @@ module.exports = function views(options = {}) {
          * @param {String} file - template file
          * @param {Object} locals - model for template
          */
-        ctx.render = async function (file, locals = {}) {
-            try {
-                let template = await dot.render.call(dot, file, locals);
-                ctx.type = 'text/htm';
-                return ctx.body = template;
-            } catch (err) {
-                return new Error(`Failed to render file ${file}, ${err.toString()}`);
-            }
+        ctx.render = function (file, locals = {}) {
+            let html = dot.render.call(dot, file, locals);
+            ctx.type = 'text/html';
+            return ctx.body = html;
         };
 
         /**
@@ -45,12 +41,8 @@ module.exports = function views(options = {}) {
          * @param {Object} locals - model for template
          * @returns {*}
          */
-        ctx.getHtmlByFile = async function (file, locals = {}) {
-            try {
-                return await dot.render.call(dot, file, locals);
-            } catch (err) {
-                throw err;
-            }
+        ctx.getHtmlByFile = function (file, locals = {}) {
+            return dot.render.call(dot, file, locals);
         };
 
         /**
@@ -72,7 +64,7 @@ module.exports = function views(options = {}) {
          * @returns {Promise}
          */
         ctx.getHtmlByString = function (str, locals = {}) {
-            return Promise.resolve(dot.renderString.call(dot, str, locals));
+            return dot.renderString.call(dot, str, locals);
         };
 
         /**
