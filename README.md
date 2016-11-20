@@ -1,5 +1,5 @@
 # koa2-dot
-![Galen Sheen] (https://s.gravatar.com/avatar/d222ab15345dce06133c960db6489a71?size=200&default=retro)
+![Galen Sheen](https://s.gravatar.com/avatar/d222ab15345dce06133c960db6489a71?size=200&default=retro)
 > [**doT**](http://olado.github.io/doT/) for koa2 with support layouts, include function. It's friendly for front-end web libraries (Angular, Ember, Vue.js, React ...)
 > [**example**](https://github.com/galensheen/koa2-dot/tree/master/example)
 
