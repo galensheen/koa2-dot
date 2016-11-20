@@ -26,9 +26,18 @@ app.use(doT.views({
     cacheable: false
 }));
 
+app.use(async (ctx, next) => {
+    const render = ctx.render;
+    ctx.render = function (file, model = {}) {
+        let app = ctx.appInfo || {name: 'koa2-dot example', desc: 'a example for koa2-dot'}; // custome by yourself
+        return render.apply(ctx, [file, model, app]);
+    };
+    await next();
+});
+
 // render('path/to/template', {model}, {app}), you can add the app info to the context and add the {app} automatically
 app.use(async (ctx, next) => {
-    return ctx.render('dot/index', {engine: 'doT', pkg: 'koa2-dot'}, {name: 'koa2-dot example', desc: 'a example for koa2-dot'});
+    return ctx.render('dot/index', {engine: 'doT', pkg: 'koa2-dot'});
 });
 
 app.listen(3000, () => {
